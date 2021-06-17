@@ -75,89 +75,77 @@ public class ABC implements Algorithm{
 	}
 	public void shuffleArray()
 	{
-	    int index;
-	    Random random = new Random();
 	    for(int j = 0 ; j <= this.N/2 -1 ;j++) {
 	    
-	    	for (int i = 1; i < D-2; i++) {
-
-				int rd = 1 + random.nextInt(D-2);
-
-				int temp = this.ongtho[j].getFoodSource().getElement()[rd];
-
-				this.ongtho[j].getFoodSource().getElement()[rd] = this.ongtho[j].getFoodSource().getElement()[i];
-
-				this.ongtho[j].getFoodSource().getElement()[i]= temp;
-
-			}
-	    	this.ongtho[j].getFoodSource().Reset();
+		    this.ongtho[j].getFoodSource().generateSolution();
+	    	//this.ongtho[j].getFoodSource().Reset();
 	    	
 	    		System.out.print("(("+j+"))"+" -> ");
 	    		System.out.println(Arrays.toString(this.ongtho[j].getFoodSource().getElement()));
 			}
-	    for (int i = 0; i < D-1; i++) {
-	    	System.out.print("(("+i+"))"+" -> ");
-	    	System.out.println(Arrays.toString(this.ongtho[i].getFoodSource().getElement()));
-	    }
-	    	}
-	
-	public void init() {
+	}
+	public OngTho infoOfBee() {
+			OngTho O = null;
+			int arr[] = new int[D];
+			arr[D-1] = 0;
+			for(int i = 1 ; i <= this.D - 2; i++) {
+				arr[i] = i;}
+			FoodSource init = new FoodSource(arr);
+			O = new OngTho(init);
+		return O;
+	}
+	public OngQuanSat infoOfOBee() {
+		OngQuanSat O= null;
 		int arr[] = new int[D];
-		arr[0] = 0;
 		arr[D-1] = 0;
 		for(int i = 1 ; i <= this.D - 2; i++) {
 			arr[i] = i;}
-		FoodSource init = new FoodSource(arr);
+		O = new OngQuanSat(arr);
+		return O;
+	}
+	public void init() {
+		
 		for(int i = 0 ; i<=this.N/2-1; i++ ) {
-			this.ongtho[i] = new OngTho(init);
-			this.ongquansat[i] = new OngQuanSat(arr);
+			this.ongtho[i] = infoOfBee();
+			//this.ongquansat[i] = new OngQuanSat(arr);
+			this.ongquansat[i] = infoOfOBee();
 			
 		}
 		shuffleArray();
 		
 	}
+	public void EqualArray(int[] A,int[] B) {
+		for(int i = 0 ; i<=D-1 ; i++) {
+			A[i] = B[i];
+		}
+	}
+	
 	public void update() {
+			
 		for(int i = 0; i <= N/2 -1 ; i++) {
-			this.precost[i] = matrix.calculateDistance(ongtho[i].getFoodSource().getPreelement());
-			System.out.print("--"+i+"OLD--");
-			System.out.println(Arrays.toString(this.ongtho[i].getFoodSource().getElement()));
+			int[] Temp = new int[D];
+			EqualArray(Temp,this.ongtho[i].getFoodSource().getElement());
+			this.precost[i] = matrix.calculateDistance(Temp);
+		
 			this.ongtho[i].getFoodSource().LanCan();
-			System.out.print("--"+i+"NEW--");
-			System.out.println(Arrays.toString(this.ongtho[0].getFoodSource().getPreelement()));
 			this.cost[i] = matrix.calculateDistance(ongtho[i].getFoodSource().getElement());
 			if(this.cost[i] <= this.precost[i]) {
-				this.ongtho[i].getFoodSource().Reset();
-				//this.precost[i] = this.cost[i];
+				
 				this.fit[i] = 1/this.cost[i];
 				System.out.print("=>(("+ i +"))  ");
-				/*for(int q = 0; q <= D-1; q++) {
-					System.out.print(this.ongtho[i].getFoodSource().getElement()[q] + " -> ");
-					//System.out.print(this.ongtho[i].getFoodSource().getPreelement()[q] + " -> ");
 				
-			}	
-			System.out.println(this.precost[i] + "->>>>" + this.cost[i] );
-				//this.precost[i] = this.cost[i];
-				System.out.print("\n");*/
-				System.out.println(Arrays.toString(this.ongtho[0].getFoodSource().getElement()));
+				System.out.println(Arrays.toString(this.ongtho[i].getFoodSource().getElement()));
 				System.out.println(this.precost[i] + "->>>>" + this.cost[i] );
+				//System.out.println(matrix.calculateDistance(this.ongtho[i].getFoodSource().getElement()));
 			}
 			else {
-				this.ongtho[i].getFoodSource().PreReset();
-				//this.cost[i] = this.precost[i];
+				this.ongtho[i].getFoodSource().setElement(Temp);
 				this.fit[i]=1/this.precost[i];
+				//System.out.println(this.precost[i] + "->>>>" + this.cost[i] );
 				System.out.print("=>(("+ i +"))  ");
-				/*for(int q = 0; q <= D-1; q++) {
-					System.out.print(this.ongtho[i].getFoodSource().getElement()[q] + " -> ");
-					System.out.print(this.ongtho[i].getFoodSource().getPreelement()[q] + " -> ");
-					
-				
-			}	
-				
-				//this.cost[i] = this.precost[i];
-				
-				System.out.print("\n");*/
-				System.out.println(Arrays.toString(this.ongtho[0].getFoodSource().getElement()));
+				System.out.println(Arrays.toString(this.ongtho[i].getFoodSource().getElement()));
 				System.out.println(this.precost[i] + "->>>>" + this.cost[i] );
+				//System.out.println(matrix.calculateDistance(this.ongtho[i].getFoodSource().getElement()));
 			}
 			
 		}
