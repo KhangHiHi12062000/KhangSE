@@ -122,7 +122,8 @@ public class SeGuiController {
     private Button runBtn;
 	@FXML
     private Button generateBtn;
-	
+	@FXML
+    private Button newBtn;
 
 	
 	@FXML
@@ -181,33 +182,39 @@ public class SeGuiController {
 		matrix.printMatrix();
 		drawEdges();
 	}
+	@FXML
+	void didPressNewBtn(){
+		for (int i=edges.getSequence().size()-1;i>=0;i--) {	
+//				System.out.println("remove the edges"+edges.getSequence().get(i).getIndexStart()+" "+edges.getSequence().get(i).getIndexEnd());
+                graphArea.getChildren().remove(edges.getSequence().get(i).getLine());
+                edges.getSequence().remove(i);
+             
+			
+		}
+//		System.out.println("this is list size"+list.size());
+		int listSize = list.size();
+		for (int i = listSize-1; i >= 0; i--) {		
+//			System.out.println("remove city i"+i +list.get(i).indexByInt());
+                graphArea.getChildren().remove(list.get(i).getStack());
+                list.remove(i);
+        }
+	}
 	
 	@FXML
 	void runBtnPressed()  {
 		disableBtn(true);
-		//runTabuSearch();
-		runABC();
+		if (tabuSeachBtn.isSelected()==true) {
+			runTabuSearch();
+		}
+		else if (aBCBtn.isSelected()==true) {
+			runABC();
+		}else {
+			
+		}
 		
-	}
-	void runABC() {
-		ABC abc  = new ABC(matrix);
-		abc.invoke();
-		edges.inVisibleEdgeAll();
-		this.solutions = abc.getSolution();
-		this.bestSolutions = abc.getBestSolution();
-		numberOfSolution = abc.getNumberOfSolution();
-        costForSolutions = abc.getCostOfSolution();
-        for(int i=0;i<=numberOfSolution;i++) {
-        	for(int j =0;j <= abc.getD();j++) {
-        		System.out.print(solutions[i][j] + "  ");
-        	}
-        	System.out.println("\t" + costForSolutions.get(i));
-        }
-        
-        for (int i = 0; i< bestSolutions.size();i++)System.out.print(bestSolutions.get(i)+" ");
-        System.out.println("number of solutions"+numberOfSolution);
-		runSolution();
-	}
+		
+		
+	}	
 	void runTabuSearch() {
 		tabuSearch = new TabuSearch(matrix);  
         tabuSearch.invoke();   
@@ -216,11 +223,40 @@ public class SeGuiController {
         solutions = tabuSearch.solutions;
         numberOfSolution = tabuSearch.numberOfSolution;
         costForSolutions = tabuSearch.costForSolutions;
-        
-        for (int i = 0; i< bestSolutions.size();i++)System.out.print(bestSolutions.get(i)+" ");
-        System.out.println("number of solutions"+numberOfSolution);
+//        for(int i=0;i<=numberOfSolution;i++) {
+//        	System.out.print(i+":");
+//        	for(int j =0;j <matrix.getSize();j++) {
+//        		System.out.print(solutions[i][j] + "  ");
+//        	}
+//        	System.out.println("\t" + costForSolutions.get(i));
+//        }
+//        for (int i = 0; i< bestSolutions.size();i++)System.out.print(bestSolutions.get(i)+" ");
+//        System.out.println("number of solutions"+numberOfSolution);
 		runSolution();
 	}
+	void runABC() {
+		ABC abc  = new ABC(matrix);
+		abc.invoke();
+		edges.inVisibleEdgeAll();
+		this.solutions = abc.getSolution();
+		this.bestSolutions = abc.getBestSolution();
+		numberOfSolution = abc.getNumberOfSolution()-1;
+        costForSolutions = abc.getCostOfSolution();
+//        for (int i =0; i<= numberOfSolution;i++) {
+//        	System.out.println("\t" + costForSolutions.get(i));
+//        }
+//        for(int i=0;i<=numberOfSolution;i++) {
+//        	System.out.print(i+":");
+//        	for(int j =0;j < abc.getD();j++) {
+//        		System.out.print(solutions[i][j] + "  ");
+//        	}
+//        	System.out.println("\t" + costForSolutions.get(i));
+//        }
+//        for (int i = 0; i< bestSolutions.size() ; i++) {
+//        	System.out.print("\t" + bestSolutions.get(i));
+//        }
+        runSolution();
+        }
 	void disableBtn(boolean bool) {
 		tabuSeachBtn.setDisable(bool);
 		sABtn.setDisable(bool);
@@ -233,6 +269,7 @@ public class SeGuiController {
 		
 		runBtn.setDisable(bool);
 		generateBtn.setDisable(bool);
+		newBtn.setDisable(bool);
 	}
 	void drawEdges() {
 		for (int i = 0; i< list.size();i++) {

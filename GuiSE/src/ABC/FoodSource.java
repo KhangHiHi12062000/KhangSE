@@ -53,4 +53,3 @@ public class FoodSource {
 			return this.element;
 	}
 }
-

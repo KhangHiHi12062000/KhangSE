@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import seGui.Matrix;
 
 public class TabuSearch {
-	 	private TabuList tabuList;
+	 private TabuList tabuList;
 	    private final Matrix matrix;
 	    public int numberOfSolution = 0;
 	    int[] currSolution;
@@ -108,7 +108,7 @@ public class TabuSearch {
 	                            printBestSolution(bestSolution);
 	                            
 	                        }
-	                        if (numberOfSolution >= problemSize*100)break outerloop;
+	                        if (numberOfSolution >= problemSize*100) break outerloop;
 	                    }
 	                }
 	            }
@@ -122,11 +122,6 @@ public class TabuSearch {
 	        }
 
 	        System.out.println("Search done! \nBest Solution cost found = " + bestCost + "\nBest Solution :");
-//	        printSolutions();
-//	        printSolution(bestSolution);
-//	        System.out.print(bestCost+" "+numberOfSolution);
-//	        printBestSolution(bestSolution);
-//	        for (int i =0 ; i< bestSolutions.size();i++) System.out.print(bestSolutions.get(i)+"\t");
 	    }
 
 	    private void swap(int i, int k) {

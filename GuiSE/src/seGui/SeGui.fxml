@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seGui.SeGuiController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seGui.SeGuiController">
    <left>
       <VBox prefHeight="800.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" text="+NEW" />
+            <Button fx:id="newBtn" mnemonicParsing="false" onAction="#didPressNewBtn" text="+NEW" />
             <RadioButton fx:id="addCityRadioBtn" mnemonicParsing="false" onAction="#AddCity" selected="true" text="Add City" />
             <RadioButton fx:id="removeCityRadioBtn" mnemonicParsing="false" onAction="#RemoveCity" text="Remove City" />
             <RadioButton fx:id="addEdgeRadioBtn" mnemonicParsing="false" onAction="#AddEdge" text="Add  Edge" />
@@ -32,7 +32,7 @@
             </TableView>
             <TitledPane alignment="TOP_LEFT" animated="false" lineSpacing="5.0" text="Choose algorithm">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" opacity="0.81">
+                <AnchorPane opacity="0.81">
                      <children>
                         <RadioButton fx:id="tabuSeachBtn" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#didPressTabuSearch" selected="true" text="Tabu Search" />
                         <RadioButton fx:id="sABtn" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" onAction="#didPressSABtn" text="Simunated Annealing" />
