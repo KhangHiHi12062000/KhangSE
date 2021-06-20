@@ -1,4 +1,4 @@
-package Algorithm;
+package ABC;
 
 import seGui.Matrix;
 
@@ -11,7 +11,7 @@ public class Run {
 					{164,201,113,0,196},
 					{158,79,303,196,0}};
 		Matrix matran = new Matrix(m);
-		ABC obj = new ABC(matran,10,5);
+		ABC obj = new ABC(matran);
 		obj.invoke();
 	}
 }

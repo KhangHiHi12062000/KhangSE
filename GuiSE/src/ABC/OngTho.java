@@ -1,4 +1,4 @@
-package Algorithm;
+package ABC;
 
 public class OngTho {
 	private FoodSource foodSource = new FoodSource(); 

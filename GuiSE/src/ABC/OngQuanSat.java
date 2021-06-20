@@ -1,4 +1,4 @@
-package Algorithm;
+package ABC;
 
 public class OngQuanSat{
 	private int[] FoodSoure;

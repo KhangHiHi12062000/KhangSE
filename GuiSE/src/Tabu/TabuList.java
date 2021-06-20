@@ -1,4 +1,4 @@
-package seGui;
+package Tabu;
 
 public class TabuList {
 	 int [][] tabuList ;
